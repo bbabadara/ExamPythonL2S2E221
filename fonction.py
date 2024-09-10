@@ -11,8 +11,8 @@ def ajout_etudiant():
         prenom = input("Prénom: ")
         nom = input("Nom: ")
         telephone = input("Téléphone: ")
-        while not est__numero_valide(telephone):
-            print("Numéro de téléphone invalide. Veuillez entrer un numéro au format 772641040")
+        while not est__numero_valide(telephone) or est_telephone_existant(telephone):
+            print("Numéro de téléphone invalide. Veuillez verifier le numéro")
             telephone = input("Téléphone: ")
         
         classe = input("Classe: ")
