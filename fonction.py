@@ -69,4 +69,39 @@ def affiche_tab_etudiants():
         moyenne=(etudiant.devoir + etudiant.projet + etudiant.examen) / 3
         print(f"{etudiant.prenom:<15} {etudiant.nom:<15} {etudiant.telephone:<15} {etudiant.classe:<15} {etudiant.devoir:<15} {etudiant.projet:<15} {etudiant.examen:<15} {moyenne:<32}")
         print("="*137)
+
+#fonction qui affiche le menu
+def menu():
+    while True:
+        print("\nMenu:")
+        print("1. Afficher tout")
+        print("2. Afficher par ordre décroissant de la moyenne")
+        print("3. Rechercher selon un critère")
+        print("4. Modification de notes pour un étudiant")
+        print("5. Sortir")
         
+        choix = input("Choisissez une option: ")
+        
+        if choix == '1':
+            affiche_tab_etudiants()
+        elif choix == '2':
+            trier_etudiants_moyenne()
+        elif choix == '3':
+            # rechercher_etudiant()
+            print("3!")
+        elif choix == '4':
+            # modifier_notes()
+            print("5!")
+        elif choix == '5':
+            print("Au revoir!")
+            break
+        else:
+            print("Choix invalide, veuillez réessayer.")        
+  
+  
+            
+#fonction pour trier et afficher les etudiants par ordre décroissant de la moyenne
+def trier_etudiants_moyenne():
+    etudiants.sort(key=lambda etudiant: etudiant.calculer_moyenne(), reverse=True)
+    affiche_tab_etudiants()
+    
