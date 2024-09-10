@@ -96,8 +96,7 @@ def menu():
         elif choix == '3':
             recherche_etudiant()
         elif choix == '4':
-            # modifier_notes()
-            print("5!")
+            modifier_notes()
         elif choix == '5':
             print("Au revoir!")
             break
@@ -171,6 +170,41 @@ def recherche_classe():
             etudiant.afficher_etudiant()
             return
         print("Etudiant non trouvé.")
+        
+#fonction pour modifier les notes
+
+def modifier_notes():
+    telephone = input("Téléphone de l'étudiant: ")
+    while not est__numero_valide(telephone):
+            print("Numéro de téléphone invalide. Veuillez verifier le numéro")
+            telephone = input("Téléphone de l'étudiant: ")
+    if not est_etudiant_existe(telephone):
+        print("Etudiant non trouvé.")
+        return
+    print("Quelle note souhaitez-vous modifier (d : Devoir, p : Projet, e : Examen)?")
+    choix = input()
+    if choix == 'd':
+        modifier_element(telephone, 'devoir', float(input("Nouvelle note de devoir: ")))
+    elif choix == 'p':
+        modifier_element(telephone, 'projet', float(input("Nouvelle note de projet: ")))
+    elif choix == 'e':
+        modifier_element(telephone, 'examen', float(input("Nouvelle note d'examen: ")))
+
+
+#fonction pour voir si un etudiant existe par son telephone
+def est_etudiant_existe(telephone):
+    for etudiant in etudiants:
+        if etudiant.telephone == telephone:
+            return True
+    return False
+
+#fonction pour modifier un element de l'etudiant
+def modifier_element(telephone,element,valeur):
+    for etudiant in etudiants:
+        if etudiant.telephone == telephone:
+            setattr(etudiant, element, valeur)
+            print(element,"modifié avec succès.")
+            return
             
 
     
