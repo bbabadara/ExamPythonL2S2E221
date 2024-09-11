@@ -19,25 +19,13 @@ def ajout_etudiant():
         nom = input("Nom: ")
         telephone = input("Téléphone: ")
         while not est__numero_valide(telephone) or est_telephone_existant(telephone):
-            print("Numéro de téléphone invalide. Veuillez verifier le numéro")
+            print("Numéro invalide. Veuillez verifier le numéro")
             telephone = input("Téléphone: ")
         
         classe = input("Classe: ")
-        
-        devoir = float(input("Note de devoir: "))
-        while not est_note_valide(devoir):
-            print("Les notes doivent être entre 0 et 20.")
-            devoir = float(input("Note de devoir: "))
-        
-        projet = float(input("Note de projet: "))
-        while not est_note_valide(projet):
-            print("Les notes doivent être entre 0 et 20.")
-            projet = float(input("Note de projet: "))
-            
-        examen = float(input("Note d'examen: "))
-        while not est_note_valide(examen):
-            print("Les notes doivent être entre 0 et 20.")
-            examen = float(input("Note d'examen: "))
+        devoir = input_note("Note de devoir: ")
+        projet = input_note("Note de projet: ")
+        examen = input_note("Note d'examen: ")
         
         etudiant = Etudiant(prenom, nom, telephone, classe, devoir, projet, examen)
         etudiants.append(etudiant)
@@ -46,7 +34,18 @@ def ajout_etudiant():
             verif=True
         else:
            verif=False
-           
+  
+
+#fontion simplifier les input de note 
+def input_note(prompt):
+    while True:
+        try:
+            note = float(input(prompt))
+            if est_note_valide(note):
+                return note
+            print("Les notes doivent être entre 0 et 20.")
+        except ValueError:
+            print("Veuillez entrer un nombre valide.")         
 
 #fonction qui verifie si le numero est valide
 def est__numero_valide(numero):
@@ -138,38 +137,31 @@ def recherche_telephone():
     while not est__numero_valide(telephone):
             print("Numéro de téléphone invalide. Veuillez verifier le numéro")
             telephone = input("Téléphone à rechercher: ")
-    for etudiant in etudiants:
-        if etudiant.telephone == telephone:
-            etudiant.afficher_etudiant()
-            return
-    print("Etudiant non trouvé.")
+    recherche_etudiant_par_critere("telephone",telephone)
+
     
 #fonction pour rechercher un étudiant par nom
 def recherche_nom():
     nom = input("Nom à rechercher: ")
-    for etudiant in etudiants:
-        if etudiant.nom.lower() == nom.lower():
-            etudiant.afficher_etudiant()
-            return
-        print("Etudiant non trouvé.")
+    recherche_etudiant_par_critere("nom",nom)
 
 #fonction pour rechercher un étudiant par prénom
 def recherche_prenom():
     prenom = input("Prénom à rechercher: ")
-    for etudiant in etudiants:
-        if etudiant.prenom.lower() == prenom.lower():
-            etudiant.afficher_etudiant()
-            return
-        print("Etudiant non trouvé.")
+    recherche_etudiant_par_critere("prenom",prenom)
 
 #fonction pour rechercher un étudiant par classe
 def recherche_classe():
     classe = input("Classe à rechercher: ")
+    recherche_etudiant_par_critere("classe",classe)
+        
+#fonction de recherche generique
+def recherche_etudiant_par_critere(critere, valeur):
     for etudiant in etudiants:
-        if etudiant.classe.lower() == classe.lower():
+        if getattr(etudiant, critere).lower() == valeur.lower():
             etudiant.afficher_etudiant()
             return
-        print("Etudiant non trouvé.")
+    print("Etudiant non trouvé.")
         
 #fonction pour modifier les notes
 
@@ -184,12 +176,11 @@ def modifier_notes():
     print("Quelle note souhaitez-vous modifier (d : Devoir, p : Projet, e : Examen)?")
     choix = input()
     if choix == 'd':
-        modifier_element(telephone, 'devoir', float(input("Nouvelle note de devoir: ")))
+        modifier_element(telephone, 'devoir', input_note("Nouvelle note de devoir: "))
     elif choix == 'p':
-        modifier_element(telephone, 'projet', float(input("Nouvelle note de projet: ")))
+        modifier_element(telephone, 'projet', input_note("Nouvelle note de projet: "))
     elif choix == 'e':
-        modifier_element(telephone, 'examen', float(input("Nouvelle note d'examen: ")))
-
+        modifier_element(telephone, 'examen', input_note("Nouvelle note d'examen: "))
 
 #fonction pour voir si un etudiant existe par son telephone
 def est_etudiant_existe(telephone):
