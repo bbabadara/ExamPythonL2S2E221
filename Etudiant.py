@@ -13,8 +13,12 @@ class Etudiant:
         return (self.devoir + self.projet + self.examen) / 3
     
     def afficher_etudiant(self):
-        print(f"Prénom: {self.prenom}, Nom: {self.nom}, Téléphone: {self.telephone}, Classe: {self.classe}, "
-              f"Devoir: {self.devoir}, Projet: {self.projet}, Examen: {self.examen}, Moyenne: {self.calculer_moyenne():.2f}")
+        print("-"*137)
+        print(f"{'Prénom':<15} {'Nom':<15} {'Téléphone':<15} {'Classe':<15} {'Devoir':<15} {'Projet':<15} {'Examen':<15} {'Moyenne':<15}")
+        print("-"*137)
+        print(f"{self.prenom:<15} {self.nom:<15} {self.telephone:<15} {self.classe:<15} {self.devoir:<15} {self.projet:<15} {self.examen:<15} {self.calculer_moyenne():<32}")
+        print("-"*137)
+
     
 
 

@@ -10,11 +10,16 @@ etudiants.append(Etudiant("Mamadou", "Diouf", "772345678", "Classe B", 12.5, 13.
 etudiants.append(Etudiant("Fatoumata", "Diallo", "773456789", "Classe A", 18.0, 19.0, 17.5))
 etudiants.append(Etudiant("Ibrahima", "Ndiaye", "774567890", "Classe C", 10.0, 11.5, 12.0))
 etudiants.append(Etudiant("Mariama", "Gueye", "775678901", "Classe B", 14.0, 15.0, 13.5))
+etudiants.append(Etudiant("Ibrahima", "Ba", "774567890", "Classe C", 10.0, 11.5, 12.0))
+etudiants.append(Etudiant("Mariama", "Ba", "775678901", "Classe B", 14.0, 15.0, 13.5))
 
 #Fonction qui permet d'ajouter un etudiant
 def ajout_etudiant():
     verif=True
-    while verif:   
+    while verif: 
+        print("*"*25)
+        print("Ajout etudiant\n") 
+        print("*"*25)
         prenom = input("Prénom: ")
         nom = input("Nom: ")
         telephone = input("Téléphone: ")
@@ -29,11 +34,16 @@ def ajout_etudiant():
         
         etudiant = Etudiant(prenom, nom, telephone, classe, devoir, projet, examen)
         etudiants.append(etudiant)
-        choix=input("Voulez-vous ajouter un autre etudiant? (o/n): ")
-        if choix=="o":
-            verif=True
-        else:
-           verif=False
+        while True:
+            choix=input("Voulez-vous ajouter un autre etudiant? (o/n): ")
+            if choix=="o":
+                verif=True
+                break
+            elif choix=="n":
+                verif=False
+                break
+            else:
+                print("Veuillez entrer 'o' ou 'n'.")
   
 
 #fontion simplifier les input de note 
@@ -83,8 +93,9 @@ def menu():
         print("1. Afficher tout")
         print("2. Afficher par ordre décroissant de la moyenne")
         print("3. Rechercher selon un critère")
-        print("4. Modification de notes pour un étudiant")
-        print("5. Sortir")
+        print("4. Ajouter un nouveau etudiant")
+        print("5. Modification de notes pour un étudiant")
+        print("6. Sortir")
         
         choix = input("Choisissez une option: ")
         
@@ -95,8 +106,10 @@ def menu():
         elif choix == '3':
             recherche_etudiant()
         elif choix == '4':
-            modifier_notes()
+            ajout_etudiant()
         elif choix == '5':
+            modifier_notes()
+        elif choix == '6':
             print("Au revoir!")
             break
         else:
@@ -162,9 +175,9 @@ def recherche_etudiant_par_critere(critere, valeur):
             etudiant.afficher_etudiant()
             return
     print("Etudiant non trouvé.")
+  
         
 #fonction pour modifier les notes
-
 def modifier_notes():
     telephone = input("Téléphone de l'étudiant: ")
     while not est__numero_valide(telephone):
