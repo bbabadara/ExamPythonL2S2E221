@@ -10,8 +10,8 @@ etudiants.append(Etudiant("Mamadou", "Diouf", "772345678", "Classe B", 12.5, 13.
 etudiants.append(Etudiant("Fatoumata", "Diallo", "773456789", "Classe A", 18.0, 19.0, 17.5))
 etudiants.append(Etudiant("Ibrahima", "Ndiaye", "774567890", "Classe C", 10.0, 11.5, 12.0))
 etudiants.append(Etudiant("Mariama", "Gueye", "775678901", "Classe B", 14.0, 15.0, 13.5))
-etudiants.append(Etudiant("Ibrahima", "Ba", "774567890", "Classe C", 10.0, 11.5, 12.0))
-etudiants.append(Etudiant("Mariama", "Ba", "775678901", "Classe B", 14.0, 15.0, 13.5))
+etudiants.append(Etudiant("Ibrahima", "Ba", "774567590", "Classe C", 10.0, 11.5, 12.0))
+etudiants.append(Etudiant("Mariama", "Ba", "775600901", "Classe B", 14.0, 15.0, 13.5))
 
 #Fonction qui permet d'ajouter un etudiant
 def ajout_etudiant():
@@ -168,14 +168,16 @@ def recherche_classe():
     classe = input("Classe à rechercher: ")
     recherche_etudiant_par_critere("classe",classe)
         
-#fonction de recherche generique
+#fonction de recherche generique et affichage resultat
 def recherche_etudiant_par_critere(critere, valeur):
+    recup=[]
     for etudiant in etudiants:
         if getattr(etudiant, critere).lower() == valeur.lower():
-            etudiant.afficher_etudiant()
-            return
-    print("Etudiant non trouvé.")
-  
+            recup.append(etudiant)
+    if len(recup)==0:
+        print("Aucun étudiant ne correspond à votre recherche.")
+    else:
+        etudiant.afficher_etudiants(recup)
         
 #fonction pour modifier les notes
 def modifier_notes():
